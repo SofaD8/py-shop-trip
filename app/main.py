@@ -1,3 +1,42 @@
-def shop_trip():
-    # write your code here
-    pass
+import json
+from car import Car
+from customer import Customer
+from shop import Shop
+
+
+def shop_trip() -> None:
+    with open("config.json") as f:
+        config = json.load(f)
+
+    fuel_price = config["FUEL_PRICE"]
+
+    shops = [
+        Shop(sh["name"],
+             sh["location"],
+             sh["products"]) for sh in config["shops"]]
+
+    customers = []
+    for cust in config["customers"]:
+        car = Car(cust["car"]["brand"], cust["car"]["fuel_consumption"])
+        customers.append(Customer(
+            cust["name"],
+            cust["product_cart"],
+            cust["location"],
+            cust["money"],
+            car)
+        )
+
+    for customer in customers:
+        print(f"{customer.name} has {customer.money} dollars")
+        trip_costs = [
+            (shop, customer.trip_cost(shop, fuel_price)) for shop in shops
+        ]
+        for shop, cost in trip_costs:
+            print(f"{customer.name}'s trip to {shop.name} costs {cost}")
+
+        cheapest_shop, cheapest_cost = min(trip_costs, key=lambda x: x[1])
+        if customer.money >= cheapest_cost:
+            customer.go_shopping(cheapest_shop, fuel_price)
+        else:
+            print(f"{customer.name} doesn't have enough money"
+                  f" to make a purchase in any shop\n")
