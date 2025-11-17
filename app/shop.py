@@ -25,9 +25,8 @@ class Shop:
             customer_name: str,
             cart: Dict[str, int]
     ) -> None:
-        print(f"\nDate: {datetime.datetime.now().strftime(
-            '%d/%m/%Y %H:%M:%S'
-        )}")
+        date_str = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(f"\nDate: {date_str}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
         total = 0
