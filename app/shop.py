@@ -33,13 +33,10 @@ class Shop:
         for product, qty in cart.items():
             if product in self.products:
                 price = self.products[product] * qty
-                if float(price).is_integer():
-                    price_str = str(int(price))
-                else:
-                    price_str = str(price)
+                price_str = f"{price: .2f}"
                 print(f"{qty} {product}s for {price_str} dollars")
                 total += price
             else:
                 print(f"{qty} {product}(s) — not in this shop")
-        print(f"Total cost is {total} dollars")
+        print(f"Total cost is {total: .2f} dollars")
         print("See you again!\n")

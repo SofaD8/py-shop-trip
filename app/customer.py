@@ -10,7 +10,8 @@ class Customer:
             name: str,
             product_cart: Dict[str, int],
             location: List[int],
-            money: float, car: Car
+            money: float,
+            car: Car
     ) -> None:
         self.name = name
         self.product_cart = product_cart
@@ -34,7 +35,6 @@ class Customer:
     def go_shopping(
             self,
             shop: Shop,
-            fuel_price: float,
             trip_cost: float
     ) -> None:
         print(f"{self.name} rides to {shop.name}")
@@ -43,4 +43,4 @@ class Customer:
         self.location = self.home_location[:]
         self.money -= trip_cost
         print(f"{self.name} rides home")
-        print(f"{self.name} now has {round(self.money, 2)} dollars\n")
+        print(f"{self.name} now has {self.money: .2f} dollars\n")
