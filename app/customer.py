@@ -27,22 +27,20 @@ class Customer:
 
     def trip_cost(self, shop: Shop, fuel_price: float) -> float:
         dist = self.distance_to(shop)
-        fuel_to_shop = self.car.fuel_cost(dist, fuel_price)
-        fuel_back = self.car.fuel_cost(dist, fuel_price)
+        fuel_one_way = self.car.fuel_cost(dist, fuel_price)
         products_cost = shop.calculate_cart_cost(self.product_cart)
-        return round(fuel_to_shop + products_cost + fuel_back, 2)
+        return round(fuel_one_way * 2 + products_cost, 2)
 
-    def go_shopping(self, shop: Shop, fuel_price: float) -> None:
-        trip_cost = self.trip_cost(shop, fuel_price)
-
-        if self.money >= trip_cost:
-            print(f"{self.name} rides to {shop.name}")
-            self.location = shop.location[:]
-            shop.print_receipt(self.name, self.product_cart)
-            self.location = self.home_location[:]
-            self.money -= trip_cost
-            print(f"{self.name} rides home")
-            print(f"{self.name} now has {round(self.money, 2)} dollars\n")
-        else:
-            print(f"{self.name} doesn't have enough money"
-                  f" to make a purchase in any shop")
+    def go_shopping(
+            self,
+            shop: Shop,
+            fuel_price: float,
+            trip_cost: float
+    ) -> None:
+        print(f"{self.name} rides to {shop.name}")
+        self.location = shop.location[:]
+        shop.print_receipt(self.name, self.product_cart)
+        self.location = self.home_location[:]
+        self.money -= trip_cost
+        print(f"{self.name} rides home")
+        print(f"{self.name} now has {round(self.money, 2)} dollars\n")

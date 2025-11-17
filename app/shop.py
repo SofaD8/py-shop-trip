@@ -31,12 +31,15 @@ class Shop:
         print("You have bought:")
         total = 0
         for product, qty in cart.items():
-            price = self.products[product] * qty
-            if float(price).is_integer():
-                price_str = str(int(price))
+            if product in self.products:
+                price = self.products[product] * qty
+                if float(price).is_integer():
+                    price_str = str(int(price))
+                else:
+                    price_str = str(price)
+                print(f"{qty} {product}s for {price_str} dollars")
+                total += price
             else:
-                price_str = str(price)
-            print(f"{qty} {product}s for {price_str} dollars")
-            total += price
+                print(f"{qty} {product}(s) — not in this shop")
         print(f"Total cost is {total} dollars")
         print("See you again!\n")

@@ -38,7 +38,7 @@ def shop_trip() -> None:
 
         cheapest_shop, cheapest_cost = min(trip_costs, key=lambda x: x[1])
         if customer.money >= cheapest_cost:
-            customer.go_shopping(cheapest_shop, fuel_price)
+            customer.go_shopping(cheapest_shop, fuel_price, cheapest_cost)
         else:
             print(f"{customer.name} doesn't have enough money"
                   f" to make a purchase in any shop")
