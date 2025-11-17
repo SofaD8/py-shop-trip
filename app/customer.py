@@ -1,7 +1,7 @@
 import math
 from typing import Dict, List
-from car import Car
-from shop import Shop
+from app.car import Car
+from app.shop import Shop
 
 
 class Customer:
