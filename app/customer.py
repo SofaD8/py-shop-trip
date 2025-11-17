@@ -34,7 +34,6 @@ class Customer:
 
     def go_shopping(self, shop: Shop, fuel_price: float) -> None:
         trip_cost = self.trip_cost(shop, fuel_price)
-        print(f"{self.name}'s trip to {shop.name} costs {trip_cost}")
 
         if self.money >= trip_cost:
             print(f"{self.name} rides to {shop.name}")
@@ -46,4 +45,4 @@ class Customer:
             print(f"{self.name} now has {round(self.money, 2)} dollars\n")
         else:
             print(f"{self.name} doesn't have enough money"
-                  f" to make a purchase in any shop\n")
+                  f" to make a purchase in any shop")

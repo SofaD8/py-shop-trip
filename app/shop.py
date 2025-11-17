@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from typing import Dict
 
 
@@ -25,13 +25,19 @@ class Shop:
             customer_name: str,
             cart: Dict[str, int]
     ) -> None:
-        print(f"\nDate: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}")
+        print(f"\nDate: {datetime.datetime.now().strftime(
+            "%d/%m/%Y %H:%M:%S"
+        )}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
         total = 0
         for product, qty in cart.items():
             price = self.products[product] * qty
-            print(f"{qty} {product}s for {price} dollars")
+            if float(price).is_integer():
+                price_str = str(int(price))
+            else:
+                price_str = str(price)
+            print(f"{qty} {product}s for {price_str} dollars")
             total += price
         print(f"Total cost is {total} dollars")
         print("See you again!\n")

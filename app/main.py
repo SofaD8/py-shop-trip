@@ -1,11 +1,13 @@
 import json
+from pathlib import Path
 from app.car import Car
 from app.customer import Customer
 from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("config.json") as f:
+    config_path = Path(__file__).parent / "config.json"
+    with config_path.open() as f:
         config = json.load(f)
 
     fuel_price = config["FUEL_PRICE"]
@@ -32,11 +34,11 @@ def shop_trip() -> None:
             (shop, customer.trip_cost(shop, fuel_price)) for shop in shops
         ]
         for shop, cost in trip_costs:
-            print(f"{customer.name}'s trip to {shop.name} costs {cost}")
+            print(f"{customer.name}'s trip to the {shop.name} costs {cost}")
 
         cheapest_shop, cheapest_cost = min(trip_costs, key=lambda x: x[1])
         if customer.money >= cheapest_cost:
             customer.go_shopping(cheapest_shop, fuel_price)
         else:
             print(f"{customer.name} doesn't have enough money"
-                  f" to make a purchase in any shop\n")
+                  f" to make a purchase in any shop")
